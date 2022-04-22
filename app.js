@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
@@ -15,6 +16,8 @@ app.use(bodyParser.urlencoded({
 app.get("/", function(req, res) {
   res.sendFile(__dirname + "/signup.html")
 });
+
+console.log(process.env.SECRET_URL)
 
 app.post("/failure", function(req, res) {
   res.redirect("/");
@@ -38,10 +41,10 @@ app.post("/", function(req, res) {
     }]
   };
   const jsonData = JSON.stringify(data);
-  const url = "https://us14.api.mailchimp.com/3.0/lists/a500e5aabe";
+  const url =process.env.SECRET_URL
   const options = {
     method: "POST",
-    auth: "Jeremy:1e322b684087d244e84d2e07f916491b-us14"
+    auth:process.env.SECRET_AUTH
   }
   const request = https.request(url, options, function(response) {
     if (response.statusCode === 200) {
@@ -59,5 +62,5 @@ app.post("/", function(req, res) {
   request.end()
 });
 app.listen(process.env.PORT || 3000, function() {
-  console.log("Server is  running on port 3000")
+  console.log("Server is running on port 3000")
 });
