@@ -17,7 +17,7 @@ app.get("/", function(req, res) {
   res.sendFile(__dirname + "/signup.html")
 });
 
-console.log(process.env.SECRET_URL)
+
 
 app.post("/failure", function(req, res) {
   res.redirect("/");
